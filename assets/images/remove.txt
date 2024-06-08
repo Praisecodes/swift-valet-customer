@@ -1,0 +1,1 @@
+All images go into this folder, you can group into sub-folders
