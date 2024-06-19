@@ -1,11 +1,34 @@
-import { Text, TouchableWithoutFeedback, View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, ScrollView } from 'react-native';
 import React from 'react';
 import Logo from '../../../../assets/images/logo.svg';
 import Input from '../../../components/common/input';
 import Google from '../../../../assets/icons/google.svg';
 import Apple from '../../../../assets/icons/apple.svg';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '../../../routes';
+import { object, string } from 'yup';
+import { useFormik } from 'formik';
 
-const Index = () => {
+const validationSchema = object({
+  email: string().email("Please enter a valid email").required(),
+  password: string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$/, {
+    message: "Your password needs to be strong enough",
+  }).required()
+});
+
+const Index = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStackParamList, "signup"> }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    onSubmit: ({ email, password }) => {
+      console.log(email, password);
+      navigation.navigate("signup", { screen: "email_verification" });
+    },
+    validationSchema
+  });
+
   return (
     <View className={`flex-1 bg-white`}>
       <ScrollView contentContainerStyle={{ minHeight: "100%", paddingHorizontal: 20, paddingTop: 32 }}>
@@ -27,6 +50,8 @@ const Index = () => {
             <Input
               placeholder='Email'
               keyboardType="email-address"
+              value={formik.values.email}
+              onChangeText={formik.handleChange('email')}
             />
           </View>
 
@@ -34,10 +59,12 @@ const Index = () => {
             <Input
               placeholder='Password'
               secureTextEntry
+              value={formik.values.password}
+              onChangeText={formik.handleChange('password')}
             />
           </View>
 
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => { formik.handleSubmit(); }}>
             <Text className={`bg-primary-900 text-[15px] py-4 my-10 text-center text-white font-sora-bold rounded-lg`}>
               Create Account
             </Text>
@@ -69,7 +96,7 @@ const Index = () => {
         </View>
 
         <Text className={`text-grey-500 text-[14.6px] font-sora-medium text-center py-6`}>
-          Already have an account? <Text className={`text-primary-800 font-sora-bold`}>Sign in</Text>
+          Already have an account? <Text className={`text-primary-800 font-sora-bold`} onPress={() => { navigation.navigate("login") }}>Sign in</Text>
         </Text>
       </ScrollView>
     </View>
