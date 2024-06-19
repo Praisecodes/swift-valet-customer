@@ -1,11 +1,11 @@
-import { Image, Text, View, useWindowDimensions } from 'react-native'
-import React from 'react'
+import { Image, Text, View, useWindowDimensions } from 'react-native';
+import React from 'react';
 
 const OnboardingComponent = ({ data }: { data: IOnbaordingData }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <View className={`flex-1 items-center justify-center relative`} style={{ width }}>
+    <View className={`flex-1 items-center justify-end relative`} style={{ width }}>
       <Image
         source={data.image}
         resizeMode="contain"

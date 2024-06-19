@@ -70,7 +70,7 @@ const Onboarding = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
 
         <View className={`flex flex-row justify-between items-center mt-14`}>
           {(index !== data.length - 1) && (
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => { navigation.navigate("signup", { screen: "index" }) }}>
               <Text className={`font-sora-medium py-2 text-base text-black`}>
                 Skip
               </Text>
@@ -80,7 +80,7 @@ const Onboarding = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
 
           <TouchableWithoutFeedback onPress={() => {
             if (index === data.length - 1) {
-              // ref.current?.scrollToIndex({ index: 0, animated: true });
+              navigation.navigate("signup", { screen: "index" });
             } else {
               ref.current?.scrollToIndex({ index: index + 1 });
             }
