@@ -1,6 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { NavigationContainer } from '@react-navigation/native';
+import Root from './src/routes/root';
+
+const client = new QueryClient();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,12 +24,15 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <View className={`flex-1 justify-center items-center`}>
-      <Text className={`font-sora-medium`}>Open up App.tsx to start working on your app!</Text>
-      <Text>
-        Environment: {process.env.EXPO_PUBLIC_ENVIRONMENT}
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={client}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <NavigationContainer>
+            <Root />
+            <StatusBar style="auto" translucent={false} backgroundColor='white' />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }
