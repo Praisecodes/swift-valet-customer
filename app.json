@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Biolerplate",
-    "slug": "Biolerplate",
+    "name": "Swift Valet",
+    "slug": "swift-valet",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
