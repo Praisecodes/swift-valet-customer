@@ -11,7 +11,7 @@ const Input = (props: Props) => {
 
   return (
     <>
-      <Text className={`text-[15px] font-sora mb-2`}>
+      <Text className={`text-[15px] font-sora-light mb-2`}>
         {props.placeholder}
       </Text>
       <View className={`border px-4 border-grey-300 ${props.solid && "bg-grey-200"} rounded-lg flex flex-row items-center`}>
