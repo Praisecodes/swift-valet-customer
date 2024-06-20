@@ -1,9 +1,19 @@
 import { Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './layout';
 import OTPTextInput from 'react-native-otp-textinput';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SingupStackParamList } from '../../../routes';
 
-const EmailVerification = () => {
+const EmailVerification = ({ navigation }: { navigation: NativeStackNavigationProp<SingupStackParamList, "email_verification"> }) => {
+  const [otp, setOtp] = useState<string>("");
+
+  useEffect(() => {
+    if (otp.length == 4) {
+      navigation.navigate("profile_details");
+    }
+  }, [otp]);
+
   return (
     <Layout>
       <Text className={`font-cabinet-bold text-[28px] mt-4`}>
@@ -17,6 +27,8 @@ const EmailVerification = () => {
         <OTPTextInput
           inputCount={4}
           tintColor={"#DFDFDF"}
+          defaultValue={otp}
+          handleTextChange={(e) => { setOtp(e) }}
           containerStyle={{
             margin: 0,
             display: "flex",
