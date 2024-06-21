@@ -21,6 +21,7 @@ const validationSchema = object({
 
 const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStackParamList, "signup"> }) => {
   const animatedWidth = useSharedValue(0);
+  const [progress, setProgress] = useState<number>(0);
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
   const [image, setImage] = useState<ImagePicker.ImagePickerAsset>();
 
@@ -64,6 +65,18 @@ const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
   useEffect(() => {
     if (image) {
       animatedWidth.value = withTiming(100, { duration: 500 });
+      const interval = setInterval(() => {
+        setProgress(prevCount => {
+          if (prevCount < 100) {
+            return prevCount + 10;
+          } else {
+            clearInterval(interval);
+            return prevCount;
+          }
+        });
+      }, 1);
+
+      return () => clearInterval(interval);
     }
   }, [image]);
 
@@ -116,7 +129,7 @@ const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
                     </View>
 
                     <Text className={`text-grey-700 font-[15px] ml-2 font-sora`}>
-                      100%
+                      {progress}%
                     </Text>
                   </View>
                 </View>
