@@ -7,9 +7,9 @@ import CarDetails from '../screens/auth/signup/car_details';
 
 const Signup = () => {
   const { Navigator, Screen } = SignupStack;
-  
+
   return (
-    <Navigator>
+    <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="index" component={Index} />
       <Screen name="email_verification" component={EmailVerification} />
       <Screen name="profile_details" component={ProfileDetails} />
