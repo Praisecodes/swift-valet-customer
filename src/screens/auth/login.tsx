@@ -5,9 +5,28 @@ import Input from '../../components/common/input';
 import Google from '../../../assets/icons/google.svg';
 import Apple from '../../../assets/icons/apple.svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../routes';
+import { RootStackParamList } from '../../routes';
+import { object, string } from 'yup';
+import { useFormik } from 'formik';
 
-const Login = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStackParamList, "login"> }) => {
+const validationSchema = object({
+  email: string().email().required(),
+  password: string().min(3).required()
+});
+
+const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList, "appscreens"> }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    onSubmit: ({ email, password }) => {
+      console.log(email, password);
+      navigation.navigate("appscreens", { screen: "home" });
+    },
+    validationSchema
+  });
+
   return (
     <View className={`flex-1 bg-white`}>
       <ScrollView contentContainerStyle={{ minHeight: "100%", paddingHorizontal: 20, paddingTop: 32 }}>
@@ -29,6 +48,8 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStack
             <Input
               placeholder='Email'
               keyboardType="email-address"
+              value={formik.values.email}
+              onChangeText={formik.handleChange('email')}
             />
           </View>
 
@@ -36,10 +57,12 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStack
             <Input
               placeholder='Password'
               secureTextEntry
+              value={formik.values.password}
+              onChangeText={formik.handleChange('password')}
             />
           </View>
 
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => { formik.handleSubmit() }}>
             <Text className={`bg-primary-900 text-[15px] py-4 my-10 text-center text-white font-sora-bold rounded-lg`}>
               Sign In
             </Text>
@@ -71,7 +94,7 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStack
         </View>
 
         <Text className={`text-grey-500 text-[14.6px] font-sora-medium text-center py-6`}>
-          Don't have an account? <Text onPress={() => { navigation.navigate("signup", { screen: "index" }) }} className={`text-primary-800 font-sora-bold`}>Create account</Text>
+          Don't have an account? <Text onPress={() => { navigation.navigate("auth", { screen: "signup", params: { screen: "index" } }) }} className={`text-primary-800 font-sora-bold`}>Create account</Text>
         </Text>
       </ScrollView>
     </View>
