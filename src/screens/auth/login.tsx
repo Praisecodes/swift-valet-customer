@@ -8,6 +8,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes';
 import { object, string } from 'yup';
 import { useFormik } from 'formik';
+import { storeData } from '../../states/async_storage';
+import useAppSettings from '../../states/zustand/app_settings';
 
 const validationSchema = object({
   email: string().email().required(),
@@ -15,14 +17,18 @@ const validationSchema = object({
 });
 
 const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList, "appscreens"> }) => {
+  const { setLoggedIn } = useAppSettings(state => state);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: ""
     },
-    onSubmit: ({ email, password }) => {
+    onSubmit: async ({ email, password }) => {
       console.log(email, password);
-      navigation.navigate("appscreens", { screen: "home" });
+      if (await storeData("loggedIn", "true")) {
+        setLoggedIn(true);
+        navigation.navigate("appscreens", { screen: "home" });
+      }
     },
     validationSchema
   });

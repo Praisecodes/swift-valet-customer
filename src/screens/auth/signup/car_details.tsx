@@ -11,6 +11,8 @@ import Check from '../../../../assets/icons/check.svg';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../routes';
+import { storeData } from '../../../states/async_storage';
+import useAppSettings from '../../../states/zustand/app_settings';
 
 const validationSchema = object({
   name: string().required(),
@@ -20,6 +22,7 @@ const validationSchema = object({
 });
 
 const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStackParamList, "signup"> }) => {
+  const { setOnboarded } = useAppSettings(state => state);
   const animatedWidth = useSharedValue(0);
   const [progress, setProgress] = useState<number>(0);
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
@@ -36,10 +39,13 @@ const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
       plate_number: "",
       color: ""
     },
-    onSubmit: ({ name, model, plate_number, color }) => {
+    onSubmit: async ({ name, model, plate_number, color }) => {
       if (image) {
         console.log(name, model, plate_number, color, image);
-        navigation.navigate("login");
+        if (await storeData("onboarded", "true")) {
+          setOnboarded(true);
+          navigation.navigate("login");
+        }
       }
     },
     validationSchema
