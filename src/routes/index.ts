@@ -16,6 +16,7 @@ type AuthStackParamList = {
 }
 
 type SupportScreensStackParamList = {
+  index: undefined;
   faqs: undefined;
   chatbot: undefined;
   contact: undefined;
