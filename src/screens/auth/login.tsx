@@ -1,5 +1,5 @@
-import { Text, TouchableWithoutFeedback, View, ScrollView } from 'react-native';
-import React from 'react';
+import { Text, TouchableWithoutFeedback, View, ScrollView, BackHandler } from 'react-native';
+import React, { useEffect } from 'react';
 import Logo from '../../../assets/images/logo.svg';
 import Input from '../../components/common/input';
 import Google from '../../../assets/icons/google.svg';
@@ -10,6 +10,7 @@ import { object, string } from 'yup';
 import { useFormik } from 'formik';
 import { storeData } from '../../states/async_storage';
 import useAppSettings from '../../states/zustand/app_settings';
+import { useIsFocused } from '@react-navigation/native';
 
 const validationSchema = object({
   email: string().email().required(),
@@ -18,6 +19,7 @@ const validationSchema = object({
 
 const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList, "appscreens"> }) => {
   const { setLoggedIn } = useAppSettings(state => state);
+  const isFocused = useIsFocused();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -32,6 +34,17 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
     },
     validationSchema
   });
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (isFocused) {
+        BackHandler.exitApp();
+      }
+      return true;
+    });
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <View className={`flex-1 bg-white`}>

@@ -1,16 +1,21 @@
-import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React from 'react';
+import { BackHandler, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useEffect } from 'react';
 import Header from '../../../../components/common/header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { SettingsScreensStackParamList } from '../../../../routes';
+import { RootStackParamList, SettingsScreensStackParamList } from '../../../../routes';
 import AccountIcon from '../../../../../assets/icons/settings/account.svg';
 import SecurityIcon from '../../../../../assets/icons/settings/security.svg';
 import SupportIcon from '../../../../../assets/icons/settings/support.svg';
 import TermsIcon from '../../../../../assets/icons/settings/terms.svg';
 import ReportIcon from '../../../../../assets/icons/settings/report.svg';
 import LogoutIcon from '../../../../../assets/icons/settings/logout.svg';
+import { removeData } from '../../../../states/async_storage';
+import useAppSettings from '../../../../states/zustand/app_settings';
+import { useNavigation } from '@react-navigation/native';
 
 const Settings = ({ navigation }: { navigation: NativeStackNavigationProp<SettingsScreensStackParamList, "index"> }) => {
+  const { setLoggedIn } = useAppSettings(state => state);
+  const rootNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "appscreens">>();
   const options = [
     {
       title: "Account Management",
@@ -45,9 +50,14 @@ const Settings = ({ navigation }: { navigation: NativeStackNavigationProp<Settin
     {
       title: "Log Out",
       icon: <LogoutIcon />,
-      onPress: async () => { },
+      onPress: async () => {
+        if (await removeData("loggedIn")) {
+          setLoggedIn(false);
+          rootNavigation.navigate("auth", { screen: "login" });
+        }
+      },
     },
-  ]
+  ];
 
   return (
     <View className={`flex-1 bg-white`}>
