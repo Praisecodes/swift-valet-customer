@@ -1,6 +1,5 @@
 import React from 'react'
 import { AppScreensTabs } from '.'
-import Home from '../screens/app/home';
 import Transactions from '../screens/app/transactions';
 import Notifications from '../screens/app/notifications';
 import Account from '../screens/app/account';
@@ -12,6 +11,7 @@ import NotificationsIcon from '../../assets/icons/tabs/notifications.svg';
 import NotificationsIconActive from '../../assets/icons/tabs/notifications-active.svg';
 import AccountIcon from '../../assets/icons/tabs/account.svg';
 import AccountIconActive from '../../assets/icons/tabs/account-active.svg';
+import HomeScreens from './home';
 
 const AppScreens = () => {
   const { Navigator, Screen } = AppScreensTabs;
@@ -50,7 +50,7 @@ const AppScreens = () => {
     >
       <Screen
         name="home"
-        component={Home}
+        component={HomeScreens}
         options={{
           tabBarIcon: (({ focused }) => (focused ? <HomeIconActive /> : <HomeIcon />))
         }}

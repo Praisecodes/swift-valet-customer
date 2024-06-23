@@ -27,7 +27,7 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
       console.log(email, password);
       if (await storeData("loggedIn", "true")) {
         setLoggedIn(true);
-        navigation.navigate("appscreens", { screen: "home" });
+        navigation.navigate("appscreens", { screen: "home", params: { screen: "index" } });
       }
     },
     validationSchema

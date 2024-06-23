@@ -5,8 +5,10 @@ import Hamburger from '../../../assets/icons/hamburger.svg';
 import Close from '../../../assets/icons/close.svg';
 import Settings from '../../../assets/icons/settings.svg';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
+import { HomeScreensStackParamList } from '../../routes';
 
-const Header = () => {
+const Header = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreensStackParamList, "index"> }) => {
   const animatedHeight = useSharedValue<any>(0);
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const animatedHeightStyle = useAnimatedStyle(() => ({
@@ -50,7 +52,7 @@ const Header = () => {
             </TouchableWithoutFeedback>
           </View>
 
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => { setNavOpen(false); navigation.navigate("settings", { screen: "index" }) }}>
             <View className={`px-4 py-3 flex flex-row gap-x-3 items-center`}>
               <Settings width={45} height={45} />
 
