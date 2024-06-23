@@ -1,5 +1,5 @@
-import { BackHandler, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React, { useEffect } from 'react';
+import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import React from 'react';
 import Header from '../../../../components/common/header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, SettingsScreensStackParamList } from '../../../../routes';
