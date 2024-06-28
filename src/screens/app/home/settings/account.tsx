@@ -59,7 +59,7 @@ const Account = ({ navigation }: { navigation: NativeStackNavigationProp<Setting
                 />
               </View>
 
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={() => { navigation.navigate("add_car") }}>
                 <View className={`flex flex-row py-3.5 bg-[#00BE5D14] rounded-lg mt-7 items-center justify-center`}>
                   <Plus />
                   <Text className={`text-primary-900 font-sora-medium text-[16px] ml-2`}>

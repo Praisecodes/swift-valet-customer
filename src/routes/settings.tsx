@@ -6,6 +6,7 @@ import SupportScreens from './support';
 import Terms from '../screens/app/home/settings/terms';
 import Report from '../screens/app/home/settings/report';
 import Security from '../screens/app/home/settings/security';
+import AddCar from '../screens/app/home/settings/add_car';
 
 const SettingScreens = () => {
   const { Navigator, Screen } = SettingsScreensStack;
@@ -17,6 +18,7 @@ const SettingScreens = () => {
       <Screen name="support" component={SupportScreens} />
       <Screen name="terms" component={Terms} />
       <Screen name="report" component={Report} />
+      <Screen name="add_car" component={AddCar} />
     </Navigator>
   )
 }

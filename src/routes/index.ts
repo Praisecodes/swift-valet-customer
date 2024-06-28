@@ -29,6 +29,7 @@ type SettingsScreensStackParamList = {
   support: NavigatorScreenParams<SupportScreensStackParamList>;
   terms: undefined;
   report: undefined;
+  add_car: undefined;
 }
 
 type HomeScreensStackParamList = {
