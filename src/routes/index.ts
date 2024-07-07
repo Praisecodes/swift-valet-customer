@@ -15,8 +15,31 @@ type AuthStackParamList = {
   signup: NavigatorScreenParams<SingupStackParamList>;
 }
 
+type SupportScreensStackParamList = {
+  index: undefined;
+  faqs: undefined;
+  chatbot: undefined;
+  contact: undefined;
+}
+
+type SettingsScreensStackParamList = {
+  index: undefined;
+  account: undefined;
+  security: undefined;
+  support: NavigatorScreenParams<SupportScreensStackParamList>;
+  terms: undefined;
+  report: undefined;
+  add_car: undefined;
+}
+
+type HomeScreensStackParamList = {
+  index: undefined;
+  settings: NavigatorScreenParams<SettingsScreensStackParamList>;
+  scan: undefined;
+}
+
 type AppScreensStackParamList = {
-  home: undefined;
+  home: NavigatorScreenParams<HomeScreensStackParamList>;
   transactions: undefined;
   notifications: undefined;
   account: undefined;
@@ -31,6 +54,9 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const SignupStack = createNativeStackNavigator<SingupStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AppScreensTabs = createBottomTabNavigator<AppScreensStackParamList>();
+const HomeScreensStack = createNativeStackNavigator<HomeScreensStackParamList>();
+const SettingsScreensStack = createNativeStackNavigator<SettingsScreensStackParamList>();
+const SupportScreensStack = createNativeStackNavigator<SupportScreensStackParamList>();
 
 export {
   RootStack,
@@ -41,4 +67,10 @@ export {
   SingupStackParamList,
   AppScreensTabs,
   AppScreensStackParamList,
+  HomeScreensStack,
+  HomeScreensStackParamList,
+  SettingsScreensStack,
+  SettingsScreensStackParamList,
+  SupportScreensStack,
+  SupportScreensStackParamList,
 }

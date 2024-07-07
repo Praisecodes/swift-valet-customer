@@ -1,12 +1,14 @@
-import { Text, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Avatar from '../../../assets/images/Avatar.png';
 import Hamburger from '../../../assets/icons/hamburger.svg';
 import Close from '../../../assets/icons/close.svg';
 import Settings from '../../../assets/icons/settings.svg';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
+import { HomeScreensStackParamList } from '../../routes';
 
-const Header = () => {
+const Header = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreensStackParamList, "index"> }) => {
   const animatedHeight = useSharedValue<any>(0);
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const animatedHeightStyle = useAnimatedStyle(() => ({
@@ -34,23 +36,23 @@ const Header = () => {
       </View>
 
       <View className={`relative`}>
-        <TouchableWithoutFeedback onPress={() => { setNavOpen(true) }}>
+        <TouchableOpacity onPress={() => { setNavOpen(true) }}>
           <Hamburger width={40} height={40} />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         <Animated.View
           className={`absolute overflow-hidden z-30 bg-white w-[270px] top-0 right-0 rounded-md`}
           style={[{ elevation: 0.5 }, animatedHeightStyle]}
         >
           <View className={`px-4 border-b border-b-[#E4E4E443] py-3 flex flex-row items-center justify-end`}>
-            <TouchableWithoutFeedback onPress={() => { setNavOpen(false) }}>
+            <TouchableOpacity onPress={() => { setNavOpen(false) }}>
               <View className={`p-1.5`}>
                 <Close />
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
 
-          <TouchableWithoutFeedback>
+          <TouchableOpacity onPress={() => { setNavOpen(false); navigation.navigate("settings", { screen: "index" }) }}>
             <View className={`px-4 py-3 flex flex-row gap-x-3 items-center`}>
               <Settings width={45} height={45} />
 
@@ -58,7 +60,7 @@ const Header = () => {
                 Settings
               </Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Animated.View>
       </View>
     </View>

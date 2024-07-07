@@ -65,9 +65,11 @@ const Index = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStack
           </View>
 
           <TouchableWithoutFeedback onPress={() => { formik.handleSubmit(); }}>
-            <Text className={`bg-primary-900 text-[15px] py-4 my-10 text-center text-white font-sora-bold rounded-lg`}>
-              Create Account
-            </Text>
+            <View className={`rounded-lg bg-primary-900 my-10`}>
+              <Text className={`text-[15px] py-4 text-center text-white font-sora-bold`}>
+                Create Account
+              </Text>
+            </View>
           </TouchableWithoutFeedback>
 
           <View className={`flex flex-row items-center gap-x-5`}>
@@ -96,7 +98,12 @@ const Index = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStack
         </View>
 
         <Text className={`text-grey-500 text-[14.6px] font-sora-medium text-center py-6`}>
-          Already have an account? <Text className={`text-primary-800 font-sora-bold`} onPress={() => { navigation.navigate("login") }}>Sign in</Text>
+          Already have an account?{" "}
+          <TouchableWithoutFeedback onPress={() => { navigation.navigate("login") }}>
+            <Text className={`text-primary-800 font-sora-bold`}>
+              Sign in
+            </Text>
+          </TouchableWithoutFeedback>
         </Text>
       </ScrollView>
     </View>

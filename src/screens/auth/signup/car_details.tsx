@@ -179,9 +179,11 @@ const CarDetails = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
         </View>
 
         <TouchableWithoutFeedback onPress={() => { formik.handleSubmit() }}>
-          <Text className={`mt-14 mb-6 bg-primary-900 text-white font-sora-medium text-base py-4 rounded-lg text-center`}>
-            Next
-          </Text>
+          <View className={`rounded-lg bg-primary-900 my-14 ios:mb-16 android:mb-6`}>
+            <Text className={`text-white font-sora-medium text-base py-4 text-center`}>
+              Next
+            </Text>
+          </View>
         </TouchableWithoutFeedback>
       </View>
     </Layout>
