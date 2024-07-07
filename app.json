@@ -19,7 +19,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.praisecodes.Biolerplate"
+      "package": "com.praisecodes.Biolerplate",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,7 +38,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "48bf4c6e-ab14-408c-bafd-213358e30545"
+        "projectId": "e5e8f83a-b9bf-4df1-acdc-ebe39ba76849"
       }
     }
   }
