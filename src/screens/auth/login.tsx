@@ -1,24 +1,25 @@
-import { Text, TouchableWithoutFeedback, View, ScrollView, BackHandler } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, ScrollView, BackHandler, TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import Logo from '../../../assets/images/logo.svg';
 import Input from '../../components/common/input';
 import Google from '../../../assets/icons/google.svg';
 import Apple from '../../../assets/icons/apple.svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../routes';
+import { AuthStackParamList, RootStackParamList } from '../../routes';
 import { object, string } from 'yup';
 import { useFormik } from 'formik';
 import { storeData } from '../../states/async_storage';
 import useAppSettings from '../../states/zustand/app_settings';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 const validationSchema = object({
   email: string().email().required(),
   password: string().min(3).required()
 });
 
-const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList, "appscreens"> }) => {
+const Login = ({ navigation }: { navigation: NativeStackNavigationProp<AuthStackParamList, "login"> }) => {
   const { setLoggedIn } = useAppSettings(state => state);
+  const appNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "appscreens">>();
   const isFocused = useIsFocused();
   const formik = useFormik({
     initialValues: {
@@ -29,7 +30,7 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
       console.log(email, password);
       if (await storeData("loggedIn", "true")) {
         setLoggedIn(true);
-        navigation.navigate("appscreens", { screen: "home", params: { screen: "index" } });
+        appNavigation.navigate("appscreens", { screen: "home", params: { screen: "index" } });
       }
     },
     validationSchema
@@ -82,9 +83,11 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
           </View>
 
           <TouchableWithoutFeedback onPress={() => { formik.handleSubmit() }}>
-            <Text className={`bg-primary-900 text-[15px] py-4 my-10 text-center text-white font-sora-bold rounded-lg`}>
-              Sign In
-            </Text>
+            <View className={`rounded-lg bg-primary-900 my-10`}>
+              <Text className={`text-[15px] py-4 text-center text-white font-sora-bold`}>
+                Sign In
+              </Text>
+            </View>
           </TouchableWithoutFeedback>
 
           <View className={`flex flex-row items-center gap-x-5`}>
@@ -113,7 +116,7 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
         </View>
 
         <Text className={`text-grey-500 text-[14.6px] font-sora-medium text-center py-6`}>
-          Don't have an account? <Text onPress={() => { navigation.navigate("auth", { screen: "signup", params: { screen: "index" } }) }} className={`text-primary-800 font-sora-bold`}>Create account</Text>
+          Don't have an account? <Text onPress={() => { navigation.navigate("signup", { screen: "index" }) }} className={`text-primary-800 font-sora-bold`}>Create account</Text>
         </Text>
       </ScrollView>
     </View>

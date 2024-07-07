@@ -33,9 +33,9 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreen
         </View>
 
         <TouchableWithoutFeedback>
-          <Text className={`p-5 bg-white rounded-full absolute shadow-md bottom-2.5 right-3`} style={{ elevation: 6, shadowColor: "#8A8A8A64" }}>
+          <View className={`p-5 bg-white rounded-full absolute shadow-md shadow-[#8A8A8A32] bottom-2.5 right-3`} style={{ elevation: 6 }}>
             <Plus />
-          </Text>
+          </View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>

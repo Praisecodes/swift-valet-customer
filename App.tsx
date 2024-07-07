@@ -9,6 +9,7 @@ import useAppSettings from './src/states/zustand/app_settings';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { getData } from './src/states/async_storage';
+import { SafeAreaView } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 const client = new QueryClient();
@@ -45,12 +46,14 @@ export default function App() {
   return (
     <QueryClientProvider client={client}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <NavigationContainer>
-            <Root />
-            <StatusBar style="auto" translucent={false} backgroundColor='white' />
-          </NavigationContainer>
-        </BottomSheetModalProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <NavigationContainer>
+              <Root />
+              <StatusBar style="auto" translucent={false} backgroundColor='white' />
+            </NavigationContainer>
+          </BottomSheetModalProvider>
+        </SafeAreaView>
       </GestureHandlerRootView>
     </QueryClientProvider>
   );

@@ -1,4 +1,4 @@
-import { Text, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Avatar from '../../../assets/images/Avatar.png';
 import Hamburger from '../../../assets/icons/hamburger.svg';
@@ -36,23 +36,23 @@ const Header = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScre
       </View>
 
       <View className={`relative`}>
-        <TouchableWithoutFeedback onPress={() => { setNavOpen(true) }}>
+        <TouchableOpacity onPress={() => { setNavOpen(true) }}>
           <Hamburger width={40} height={40} />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         <Animated.View
           className={`absolute overflow-hidden z-30 bg-white w-[270px] top-0 right-0 rounded-md`}
           style={[{ elevation: 0.5 }, animatedHeightStyle]}
         >
           <View className={`px-4 border-b border-b-[#E4E4E443] py-3 flex flex-row items-center justify-end`}>
-            <TouchableWithoutFeedback onPress={() => { setNavOpen(false) }}>
+            <TouchableOpacity onPress={() => { setNavOpen(false) }}>
               <View className={`p-1.5`}>
                 <Close />
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
 
-          <TouchableWithoutFeedback onPress={() => { setNavOpen(false); navigation.navigate("settings", { screen: "index" }) }}>
+          <TouchableOpacity onPress={() => { setNavOpen(false); navigation.navigate("settings", { screen: "index" }) }}>
             <View className={`px-4 py-3 flex flex-row gap-x-3 items-center`}>
               <Settings width={45} height={45} />
 
@@ -60,7 +60,7 @@ const Header = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScre
                 Settings
               </Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Animated.View>
       </View>
     </View>

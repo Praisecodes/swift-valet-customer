@@ -5,7 +5,7 @@ import ScanIcon from '../../../assets/images/scan.svg';
 
 const ScanCard = () => {
   return (
-    <View className={`rounded-xl mt-8 overflow-hidden`}>
+    <View className={`rounded-xl -z-30 mt-8 overflow-hidden`}>
       <ImageBackground
         source={Background}
         className={`py-5 rounded-lg min-h-[209px] px-4 flex items-center justify-center`}
@@ -14,9 +14,11 @@ const ScanCard = () => {
           <ScanIcon />
         </View>
         <TouchableWithoutFeedback>
-          <Text className={`text-white font-sora-medium bg-primary-900 py-2.5 px-3 rounded-lg text-xs`}>
-            Scan Valet QR Code
-          </Text>
+          <View className={` rounded-lg bg-primary-900`}>
+            <Text className={`text-white font-sora-medium py-2.5 px-3 text-xs`}>
+              Scan Valet QR Code
+            </Text>
+          </View>
         </TouchableWithoutFeedback>
       </ImageBackground>
     </View>
