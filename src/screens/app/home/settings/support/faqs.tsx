@@ -9,6 +9,4 @@ const Faqs = () => {
   )
 }
 
-export default Faqs
-
-const styles = StyleSheet.create({})
+export default Faqs;
