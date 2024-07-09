@@ -46,14 +46,12 @@ export default function App() {
   return (
     <QueryClientProvider client={client}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <NavigationContainer>
-              <Root />
-              <StatusBar style="auto" translucent={false} backgroundColor='white' />
-            </NavigationContainer>
-          </BottomSheetModalProvider>
-        </SafeAreaView>
+        <BottomSheetModalProvider>
+          <NavigationContainer>
+            <Root />
+            <StatusBar style="auto" translucent={false} backgroundColor='white' />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </QueryClientProvider>
   );

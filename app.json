@@ -34,6 +34,12 @@
         {
           "photosPermission": "Allow Swift Valet to access your photos"
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Swift Valet to access your phone camera"
+        }
       ]
     ],
     "extra": {

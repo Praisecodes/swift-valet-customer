@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import React from 'react';
 import Header from '../../../../components/common/header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -61,30 +61,32 @@ const Settings = ({ navigation }: { navigation: NativeStackNavigationProp<Settin
 
   return (
     <View className={`flex-1 bg-white`}>
-      <Header title='Settings' onBackPressed={() => { navigation.goBack(); }} />
-      <View className={`flex-1`}>
-        <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 14, paddingHorizontal: 16 }}>
-          {options.map((option, index) => (
-            <TouchableWithoutFeedback key={index} onPress={option.onPress}>
-              <View className={`flex flex-row items-center mt-2.5 border-b border-b-[#F1EFEF] py-2.5`}>
-                {option.icon}
+      <SafeAreaView className={`flex-1`}>
+        <Header title='Settings' onBackPressed={() => { navigation.goBack(); }} />
+        <View className={`flex-1`}>
+          <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 14, paddingHorizontal: 16 }}>
+            {options.map((option, index) => (
+              <TouchableWithoutFeedback key={index} onPress={option.onPress}>
+                <View className={`flex flex-row items-center mt-2.5 border-b border-b-[#F1EFEF] py-2.5`}>
+                  {option.icon}
 
-                <View className={`ml-3`}>
-                  <Text className={`font-sora-medium text-[17px]`}>
-                    {option.title}
-                  </Text>
-
-                  {option.text && (
-                    <Text className={`text-grey-300 font-sora text-xs mt-1.5`}>
-                      {option.text}
+                  <View className={`ml-3`}>
+                    <Text className={`font-sora-medium text-[17px]`}>
+                      {option.title}
                     </Text>
-                  )}
+
+                    {option.text && (
+                      <Text className={`text-grey-300 font-sora text-xs mt-1.5`}>
+                        {option.text}
+                      </Text>
+                    )}
+                  </View>
                 </View>
-              </View>
-            </TouchableWithoutFeedback>
-          ))}
-        </ScrollView>
-      </View>
+              </TouchableWithoutFeedback>
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     </View>
   )
 }

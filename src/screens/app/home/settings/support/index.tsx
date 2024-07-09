@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
 import Header from '../../../../../components/common/header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -31,33 +31,35 @@ const Support = ({ navigation }: { navigation: NativeStackNavigationProp<Support
 
   return (
     <View className={`flex-1 bg-white`}>
-      <Header title='Support' onBackPressed={() => { navigation.goBack(); }} />
-      <View className={`flex-1`}>
-        <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 14, paddingHorizontal: 16 }}>
-          <Text className={`font-sora text-base text-[#6E6E6E]`}>
-            Choose the best option for you to get support from us
-          </Text>
+      <SafeAreaView className={`flex-1`}>
+        <Header title='Support' onBackPressed={() => { navigation.goBack(); }} />
+        <View className={`flex-1`}>
+          <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 14, paddingHorizontal: 16 }}>
+            <Text className={`font-sora text-base text-[#6E6E6E]`}>
+              Choose the best option for you to get support from us
+            </Text>
 
-          <View>
-            {options.map((option, index) => (
-              <TouchableWithoutFeedback key={index} onPress={option.onPress}>
-                <View className={`border-b border-b-[#F3F1F1] ${(index === (options.length - 1)) ? "py-4" : "py-3"} mt-4 flex flex-row px-3 items-center`}>
-                  {option.icon}
+            <View>
+              {options.map((option, index) => (
+                <TouchableWithoutFeedback key={index} onPress={option.onPress}>
+                  <View className={`border-b border-b-[#F3F1F1] ${(index === (options.length - 1)) ? "py-4" : "py-3"} mt-4 flex flex-row px-3 items-center`}>
+                    {option.icon}
 
-                  <View className={`ml-5 flex-1`}>
-                    <Text className={`font-sora-medium text-base`}>
-                      {option.title}
-                    </Text>
-                    <Text className={`font-sora text-[#A8A8A8] text-sm leading-none mt-1`}>
-                      {option.text}
-                    </Text>
+                    <View className={`ml-5 flex-1`}>
+                      <Text className={`font-sora-medium text-base`}>
+                        {option.title}
+                      </Text>
+                      <Text className={`font-sora text-[#A8A8A8] text-sm leading-none mt-1`}>
+                        {option.text}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
-            ))}
-          </View>
-        </ScrollView>
-      </View>
+                </TouchableWithoutFeedback>
+              ))}
+            </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     </View>
   )
 }

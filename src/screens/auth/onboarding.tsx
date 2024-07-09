@@ -1,4 +1,4 @@
-import { FlatList, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
+import { FlatList, SafeAreaView, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
 import React, { useRef, useState } from 'react';
 import Create from '../../../assets/icons/onboarding/create-account.svg';
 import Secure from '../../../assets/icons/onboarding/secure.svg';
@@ -42,56 +42,58 @@ const Onboarding = ({ navigation }: { navigation: NativeStackNavigationProp<Auth
   ];
 
   return (
-    <View className={`flex-1 bg-white`}>
-      <View className={`flex-1`}>
-        <FlatList
-          data={data}
-          keyExtractor={(_, index) => index.toString()}
-          horizontal
-          renderItem={({ item }) => (<OnboardingComponent data={item} />)}
-          ref={ref}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onScroll={(e) => {
-            setIndex(Math.round(e.nativeEvent.contentOffset.x / width));
-          }}
-        />
-      </View>
-
-      <View className={`py-8 px-6`}>
-        <View className={`flex flex-row items-center mx-auto self-start`}>
-          {Array.from({ length: data.length }).map((_, i) => (
-            <View
-              key={i}
-              className={`w-[22px] mx-0.5 h-[2.39px] ${i === index ? "bg-primary-800" : "bg-grey-400"} rounded-full`}
-            />
-          ))}
+    <SafeAreaView className={`flex-1`}>
+      <View className={`flex-1 bg-white`}>
+        <View className={`flex-1`}>
+          <FlatList
+            data={data}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            renderItem={({ item }) => (<OnboardingComponent data={item} />)}
+            ref={ref}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onScroll={(e) => {
+              setIndex(Math.round(e.nativeEvent.contentOffset.x / width));
+            }}
+          />
         </View>
 
-        <View className={`flex flex-row justify-between items-center mt-14`}>
-          {(index !== data.length - 1) && (
-            <TouchableWithoutFeedback onPress={() => { navigation.navigate("signup", { screen: "index" }) }}>
-              <Text className={`font-sora-medium py-2 text-base text-black`}>
-                Skip
-              </Text>
+        <View className={`py-8 px-6`}>
+          <View className={`flex flex-row items-center mx-auto self-start`}>
+            {Array.from({ length: data.length }).map((_, i) => (
+              <View
+                key={i}
+                className={`w-[22px] mx-0.5 h-[2.39px] ${i === index ? "bg-primary-800" : "bg-grey-400"} rounded-full`}
+              />
+            ))}
+          </View>
+
+          <View className={`flex flex-row justify-between items-center mt-14`}>
+            {(index !== data.length - 1) && (
+              <TouchableWithoutFeedback onPress={() => { navigation.navigate("signup", { screen: "index" }) }}>
+                <Text className={`font-sora-medium py-2 text-base text-black`}>
+                  Skip
+                </Text>
+              </TouchableWithoutFeedback>
+            )}
+            <View />
+
+            <TouchableWithoutFeedback onPress={() => {
+              if (index === data.length - 1) {
+                navigation.navigate("signup", { screen: "index" });
+              } else {
+                ref.current?.scrollToIndex({ index: index + 1 });
+              }
+            }}>
+              <View className={`w-14 h-14 bg-black rounded-full flex items-center justify-center`}>
+                <AngleRight />
+              </View>
             </TouchableWithoutFeedback>
-          )}
-          <View />
-
-          <TouchableWithoutFeedback onPress={() => {
-            if (index === data.length - 1) {
-              navigation.navigate("signup", { screen: "index" });
-            } else {
-              ref.current?.scrollToIndex({ index: index + 1 });
-            }
-          }}>
-            <View className={`w-14 h-14 bg-black rounded-full flex items-center justify-center`}>
-              <AngleRight />
-            </View>
-          </TouchableWithoutFeedback>
+          </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

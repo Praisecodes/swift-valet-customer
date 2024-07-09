@@ -1,4 +1,4 @@
-import { BackHandler, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { BackHandler, SafeAreaView, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useEffect } from 'react';
 import Header from '../../../components/home/header';
 import { HomeScreensStackParamList } from '../../../routes';
@@ -23,21 +23,23 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreen
 
   return (
     <View className={`flex-1 bg-white`}>
-      <ScrollView contentContainerStyle={{ minHeight: "98.4%", position: "relative", paddingHorizontal: 18, paddingVertical: 26 }}>
-        <Header navigation={navigation} />
-        <ScanCard />
-        <View className={`mt-4`}>
-          <Text className={`font-sora-bold text-lg`}>
-            List of Personal cars
-          </Text>
-        </View>
-
-        <TouchableWithoutFeedback>
-          <View className={`p-5 bg-white rounded-full absolute shadow-md shadow-[#8A8A8A32] bottom-2.5 right-3`} style={{ elevation: 6 }}>
-            <Plus />
+      <SafeAreaView>
+        <ScrollView contentContainerStyle={{ minHeight: "98.4%", position: "relative", paddingHorizontal: 18, paddingVertical: 26 }}>
+          <Header navigation={navigation} />
+          <ScanCard />
+          <View className={`mt-4`}>
+            <Text className={`font-sora-bold text-lg`}>
+              List of Personal cars
+            </Text>
           </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+
+          <TouchableWithoutFeedback>
+            <View className={`p-5 bg-white rounded-full absolute shadow-md shadow-[#8A8A8A32] bottom-2.5 right-3`} style={{ elevation: 6 }}>
+              <Plus />
+            </View>
+          </TouchableWithoutFeedback>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   )
 }

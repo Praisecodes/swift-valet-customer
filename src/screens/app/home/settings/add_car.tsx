@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SettingsScreensStackParamList } from '../../../../routes';
@@ -70,109 +70,111 @@ const AddCar = ({ navigation }: { navigation: NativeStackNavigationProp<Settings
 
   return (
     <View className={`flex-1 bg-white`}>
-      <Header title='Add car' onBackPressed={() => { navigation.goBack() }} />
-      <View className={`flex-1`}>
-        <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 20, paddingHorizontal: 16 }}>
-          <View>
-            <Text className={`font-sora-medium text-base`}>
-              Input car details
-            </Text>
-            <Text className={`font-sora text-sm mt-1 text-[#A8A8A8]`}>
-              Required to be able to setup your profile
-            </Text>
-          </View>
-
-          <View className={`mt-9`}>
+      <SafeAreaView className={`flex-1`}>
+        <Header title='Add car' onBackPressed={() => { navigation.goBack() }} />
+        <View className={`flex-1`}>
+          <ScrollView contentContainerStyle={{ minHeight: "100%", paddingTop: 20, paddingHorizontal: 16 }}>
             <View>
-              <Text className={`font-sora-medium`}>
-                Upload car image
+              <Text className={`font-sora-medium text-base`}>
+                Input car details
               </Text>
+              <Text className={`font-sora text-sm mt-1 text-[#A8A8A8]`}>
+                Required to be able to setup your profile
+              </Text>
+            </View>
 
-              {!image && (
-                <TouchableWithoutFeedback onPress={pickImage}>
-                  <View className={`rounded-lg border border-[#EAECF0] mt-2.5 py-4 px-5 bg-[#F9FAFB] flex items-center justify-center`}>
-                    <Upload />
+            <View className={`mt-9`}>
+              <View>
+                <Text className={`font-sora-medium`}>
+                  Upload car image
+                </Text>
 
-                    <Text className={`text-[#D0D5DD] font-sora-medium mt-1.5 leading-[24px]`}>
-                      Click to upload
-                    </Text>
-                    <Text className={`text-grey-600 font-sora text-[15px] mt-1.5`}>
-                      SVG, PNG, JPG or GIF (max. 800x400px)
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              )}
+                {!image && (
+                  <TouchableWithoutFeedback onPress={pickImage}>
+                    <View className={`rounded-lg border border-[#EAECF0] mt-2.5 py-4 px-5 bg-[#F9FAFB] flex items-center justify-center`}>
+                      <Upload />
 
-              {image && (
-                <View className={`mt-2.5 border border-[#B4B7F0] py-4 px-5 rounded-lg flex flex-row justify-between items-start`}>
-                  <View className={`flex-1 flex flex-row`}>
-                    <ImageIcon width={40} height={40} />
-
-                    <View className={`ml-2 flex-1`}>
-                      <Text className={`font-sora text-base text-grey-800`}>
-                        {image.fileName}
+                      <Text className={`text-[#D0D5DD] font-sora-medium mt-1.5 leading-[24px]`}>
+                        Click to upload
                       </Text>
-                      <Text className={`font-sora text-[15px] mt-1 text-grey-600`}>
-                        {Math.round(image.fileSize! / 1000)} KB
+                      <Text className={`text-grey-600 font-sora text-[15px] mt-1.5`}>
+                        SVG, PNG, JPG or GIF (max. 800x400px)
                       </Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                )}
 
-                      <View className={`flex flex-row items-center mt-2`}>
-                        <View className={`flex-1 bg-grey-200 h-[7px] rounded-full`}>
-                          <Animated.View className={`bg-primary-900 h-full rounded-full`} style={widthStyle} />
-                        </View>
+                {image && (
+                  <View className={`mt-2.5 border border-[#B4B7F0] py-4 px-5 rounded-lg flex flex-row justify-between items-start`}>
+                    <View className={`flex-1 flex flex-row`}>
+                      <ImageIcon width={40} height={40} />
 
-                        <Text className={`text-grey-700 font-[15px] ml-2 font-sora`}>
-                          {progress}%
+                      <View className={`ml-2 flex-1`}>
+                        <Text className={`font-sora text-base text-grey-800`}>
+                          {image.fileName}
                         </Text>
+                        <Text className={`font-sora text-[15px] mt-1 text-grey-600`}>
+                          {Math.round(image.fileSize! / 1000)} KB
+                        </Text>
+
+                        <View className={`flex flex-row items-center mt-2`}>
+                          <View className={`flex-1 bg-grey-200 h-[7px] rounded-full`}>
+                            <Animated.View className={`bg-primary-900 h-full rounded-full`} style={widthStyle} />
+                          </View>
+
+                          <Text className={`text-grey-700 font-[15px] ml-2 font-sora`}>
+                            {progress}%
+                          </Text>
+                        </View>
                       </View>
                     </View>
+
+                    <Check />
                   </View>
+                )}
+              </View>
 
-                  <Check />
-                </View>
-              )}
+              <View className={`mt-8`}>
+                <Input
+                  placeholder='Car name'
+                  value={formik.values.name}
+                  onChangeText={formik.handleChange('name')}
+                />
+              </View>
+
+              <View className={`mt-6`}>
+                <Input
+                  placeholder='Model of the car'
+                  value={formik.values.model}
+                  onChangeText={formik.handleChange('model')}
+                />
+              </View>
+
+              <View className={`mt-6`}>
+                <Input
+                  placeholder='Car plate number'
+                  value={formik.values.plate_number}
+                  onChangeText={formik.handleChange('plate_number')}
+                />
+              </View>
+
+              <View className={`mt-6`}>
+                <Input
+                  placeholder='Color of the car'
+                  value={formik.values.color}
+                  onChangeText={formik.handleChange('color')}
+                />
+              </View>
+
+              <TouchableWithoutFeedback onPress={() => { formik.handleSubmit() }}>
+                <Text className={`mt-14 mb-6 bg-primary-900 text-white font-sora-medium text-base py-4 rounded-lg text-center`}>
+                  Save
+                </Text>
+              </TouchableWithoutFeedback>
             </View>
-
-            <View className={`mt-8`}>
-              <Input
-                placeholder='Car name'
-                value={formik.values.name}
-                onChangeText={formik.handleChange('name')}
-              />
-            </View>
-
-            <View className={`mt-6`}>
-              <Input
-                placeholder='Model of the car'
-                value={formik.values.model}
-                onChangeText={formik.handleChange('model')}
-              />
-            </View>
-
-            <View className={`mt-6`}>
-              <Input
-                placeholder='Car plate number'
-                value={formik.values.plate_number}
-                onChangeText={formik.handleChange('plate_number')}
-              />
-            </View>
-
-            <View className={`mt-6`}>
-              <Input
-                placeholder='Color of the car'
-                value={formik.values.color}
-                onChangeText={formik.handleChange('color')}
-              />
-            </View>
-
-            <TouchableWithoutFeedback onPress={() => { formik.handleSubmit() }}>
-              <Text className={`mt-14 mb-6 bg-primary-900 text-white font-sora-medium text-base py-4 rounded-lg text-center`}>
-                Save
-              </Text>
-            </TouchableWithoutFeedback>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     </View>
   )
 }
