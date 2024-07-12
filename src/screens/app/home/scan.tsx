@@ -1,13 +1,19 @@
 import { ImageBackground, SafeAreaView, StatusBar, Text, View } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { HomeScreensStackParamList } from '../../../routes';
 import { useIsFocused } from '@react-navigation/native';
 import Warning from '../../../../assets/icons/warning.svg';
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import ValetDetails from '../../../components/scan/valet_details';
+import PaymentMethod from '../../../components/scan/payment_method';
+import CardDetails from '../../../components/scan/card_details';
 
 const Scan = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreensStackParamList, "scan"> }) => {
   const isFocused = useIsFocused();
+  const ref = useRef<BottomSheetModal>(null);
+  const [section, setSection] = useState<"details" | "payment" | "card">("details");
 
   useEffect(() => {
     (async () => {
@@ -38,6 +44,8 @@ const Scan = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreen
                   barcodeTypes: ["qr"]
                 }}
                 onBarcodeScanned={(result) => {
+                  setSection("details");
+                  ref.current?.present();
                   console.log(result);
                 }}
               />
@@ -53,6 +61,27 @@ const Scan = ({ navigation }: { navigation: NativeStackNavigationProp<HomeScreen
             </View>
           </View>
         </View>
+
+        <BottomSheetModal
+          ref={ref}
+          handleComponent={null}
+          enableDynamicSizing
+          backdropComponent={(props) => (
+            <BottomSheetBackdrop
+              {...props}
+              disappearsOnIndex={-1}
+              appearsOnIndex={0}
+            />
+          )}
+        >
+          <BottomSheetScrollView>
+            <View className={`pt-5 android:pb-5 ios:pb-8 px-4`}>
+              {section === "details" && <ValetDetails closeModal={() => { ref.current?.dismiss(); }} />}
+              {section === "payment" && <PaymentMethod />}
+              {section === "card" && <CardDetails />}
+            </View>
+          </BottomSheetScrollView>
+        </BottomSheetModal>
       </SafeAreaView>
     </View>
   )
